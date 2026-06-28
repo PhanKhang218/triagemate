@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment / secrets — NEVER commit real keys
+.env
+*.env
+!.env.example
+
+# uv
+uv.lock
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.adk/
+
+# Runtime artifacts
+audit_log.jsonl
+artifacts/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

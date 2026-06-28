@@ -1,0 +1,91 @@
+{
+  "_disclaimer": "Educational decision-support reference only. Not a medical device. Final triage decisions are always made by a licensed clinician.",
+  "esi_levels": {
+    "1": {
+      "label": "Resuscitation",
+      "description": "Immediate life-saving intervention required (e.g. cardiac arrest, apnea, severe shock).",
+      "target_wait": "Immediate"
+    },
+    "2": {
+      "label": "Emergent",
+      "description": "High-risk situation, severe pain/distress, or dangerous vital signs. Should not wait.",
+      "target_wait": "< 10 minutes"
+    },
+    "3": {
+      "label": "Urgent",
+      "description": "Stable vital signs but likely needs multiple resources (labs, imaging, IV).",
+      "target_wait": "< 30 minutes"
+    },
+    "4": {
+      "label": "Less urgent",
+      "description": "Stable, likely needs a single resource (e.g. one X-ray or sutures).",
+      "target_wait": "< 60 minutes"
+    },
+    "5": {
+      "label": "Non-urgent",
+      "description": "Stable, needs no emergency resources (e.g. prescription refill, minor complaint).",
+      "target_wait": "Routine"
+    }
+  },
+  "chief_complaints": {
+    "chest pain": {
+      "aliases": ["chest pressure", "chest tightness", "chest discomfort", "angina", "heart pain"],
+      "esi_criteria": "Cardiac-sounding chest pain (pressure, exertional, radiating, with diaphoresis/nausea) is ESI 2 until ruled out. Abnormal vitals or distress escalate toward ESI 1. Reproducible, pleuritic, or clearly musculoskeletal pain in a well-appearing patient with normal vitals may be ESI 3.",
+      "red_flags": [
+        {"sign": "Crushing/pressure pain radiating to arm, jaw, or back", "concern": "Acute coronary syndrome", "suggested_esi": 2},
+        {"sign": "Chest pain with diaphoresis, nausea, or dyspnea", "concern": "Myocardial infarction", "suggested_esi": 2},
+        {"sign": "Sudden tearing pain radiating to the back", "concern": "Aortic dissection", "suggested_esi": 1},
+        {"sign": "Chest pain with syncope, hypotension, or SpO2 < 92%", "concern": "Unstable cardiopulmonary event", "suggested_esi": 1}
+      ]
+    },
+    "shortness of breath": {
+      "aliases": ["dyspnea", "difficulty breathing", "breathlessness", "cant breathe", "trouble breathing", "sob"],
+      "esi_criteria": "Respiratory distress with low SpO2, accessory muscle use, or inability to speak full sentences is ESI 1-2. Mild dyspnea on exertion with normal SpO2 and no distress is ESI 3.",
+      "red_flags": [
+        {"sign": "SpO2 < 92% on room air", "concern": "Hypoxemia", "suggested_esi": 2},
+        {"sign": "Unable to speak in full sentences / accessory muscle use", "concern": "Severe respiratory distress", "suggested_esi": 1},
+        {"sign": "Sudden onset with chest pain and leg swelling", "concern": "Pulmonary embolism", "suggested_esi": 2},
+        {"sign": "Stridor, drooling, or lip/tongue swelling", "concern": "Airway compromise / anaphylaxis", "suggested_esi": 1}
+      ]
+    },
+    "abdominal pain": {
+      "aliases": ["stomach pain", "belly pain", "abdominal cramps", "tummy ache", "stomach ache"],
+      "esi_criteria": "Most undifferentiated abdominal pain needing labs and imaging is ESI 3. Signs of peritonitis, GI bleeding, or unstable vitals escalate to ESI 2 or 1.",
+      "red_flags": [
+        {"sign": "Rigid abdomen with rebound tenderness", "concern": "Peritonitis", "suggested_esi": 2},
+        {"sign": "Severe pain with hypotension or tachycardia", "concern": "Internal bleeding / ruptured viscus", "suggested_esi": 1},
+        {"sign": "Vomiting blood or black/tarry stools", "concern": "GI hemorrhage", "suggested_esi": 2},
+        {"sign": "Pregnant with sudden severe lower abdominal pain", "concern": "Ectopic pregnancy", "suggested_esi": 2}
+      ]
+    },
+    "headache": {
+      "aliases": ["head pain", "migraine", "cephalgia"],
+      "esi_criteria": "Sudden 'thunderclap' headache, focal neuro deficit, or altered mental status is ESI 1-2. Chronic/recurrent headache resembling prior migraines with normal exam is ESI 3-4.",
+      "red_flags": [
+        {"sign": "Sudden 'worst headache of life' (thunderclap)", "concern": "Subarachnoid hemorrhage", "suggested_esi": 1},
+        {"sign": "Headache with fever and neck stiffness", "concern": "Meningitis", "suggested_esi": 2},
+        {"sign": "Headache with focal weakness, slurred speech, or vision loss", "concern": "Stroke", "suggested_esi": 1},
+        {"sign": "New headache with confusion or seizure", "concern": "Intracranial process", "suggested_esi": 2}
+      ]
+    },
+    "fever": {
+      "aliases": ["high temperature", "pyrexia", "febrile", "temperature"],
+      "esi_criteria": "Fever with signs of sepsis (hypotension, tachycardia, altered mental status) is ESI 1-2. Well-appearing adult with isolated fever and stable vitals is often ESI 3-4. Immunocompromised or very young/old patients escalate.",
+      "red_flags": [
+        {"sign": "Fever with hypotension or SpO2 < 92%", "concern": "Sepsis / septic shock", "suggested_esi": 1},
+        {"sign": "Fever with petechial/non-blanching rash", "concern": "Meningococcemia", "suggested_esi": 2},
+        {"sign": "Fever with confusion or lethargy", "concern": "Severe infection / sepsis", "suggested_esi": 2},
+        {"sign": "Fever in an immunocompromised or post-chemotherapy patient", "concern": "Neutropenic fever", "suggested_esi": 2}
+      ]
+    },
+    "general": {
+      "aliases": ["other", "unknown", "unspecified", "weakness", "dizziness", "malaise"],
+      "esi_criteria": "When the complaint does not match a specific protocol, base ESI on vital sign stability, distress level, and resources likely required. Any dangerous vital sign or altered mental status escalates to ESI 1-2.",
+      "red_flags": [
+        {"sign": "Altered mental status / unresponsiveness", "concern": "Critical illness", "suggested_esi": 1},
+        {"sign": "Any dangerous vital sign (e.g. HR > 130, SBP < 90, SpO2 < 92%, RR > 30)", "concern": "Physiologic instability", "suggested_esi": 2},
+        {"sign": "Severe uncontrolled pain (>= 8/10)", "concern": "High distress", "suggested_esi": 2}
+      ]
+    }
+  }
+}
