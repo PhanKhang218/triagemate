@@ -41,17 +41,15 @@ PHI redacted.
 
 ## Architecture
 
-![Architecture](docs/architecture.png)
+![TriageMate architecture](docs/architecture.png)
 
-> Source diagram: [`docs/architecture.drawio`](docs/architecture.drawio)
-> (open in the draw.io VS Code extension; export to `docs/architecture.png` for the writeup).
 
 A **`SequentialAgent`** orchestrates three specialist ADK agents:
 
 | # | Agent | Role | Output |
 |---|-------|------|--------|
 | 1 | **Intake** | Structures free text into a validated `PatientPresentation` | `presentation` |
-| 2 | **Triage** | Reasons over the presentation, calling the **MCP clinical-kb** tools (`lookup_red_flags`, `get_esi_criteria`) | `triage_draft` |
+| 2 | **Triage** | Reasons over the presentation, calling the **MCP clinical-kb** tools (`lookup_red_flags`, `get_esi_criteria`, `assess_vital_signs`) | `triage_draft` |
 | 3 | **Safety Reviewer** | Validates the draft, enforces the no-diagnosis mandate, emits a structured `TriageResult` | `triage_result` |
 
 Deterministic guardrails wrap the LLM agents via ADK callbacks:
@@ -66,7 +64,7 @@ Deterministic guardrails wrap the LLM agents via ADK callbacks:
 | Concept | How it shows up | Where |
 |---------|-----------------|-------|
 | **Agent / Multi-agent (ADK)** | 3-agent `SequentialAgent` pipeline with shared session state | [`triage_agent/agent.py`](triage_agent/agent.py) |
-| **MCP Server** | A real stdio MCP server exposing two clinical-knowledge tools | [`mcp_server/server.py`](mcp_server/server.py) |
+| **MCP Server** | A real stdio MCP server exposing three clinical-knowledge tools | [`mcp_server/server.py`](mcp_server/server.py) |
 | **Security features** | PHI redaction, prompt-injection defense, output validation, no-diagnosis guardrail, audit log + STRIDE model | [`triage_agent/guardrails.py`](triage_agent/guardrails.py), [`threat_model.md`](threat_model.md) |
 | **Agent Skills** | Modular `SKILL.md` procedures loaded into agent instructions | [`skills/`](skills/) |
 | **Deployability** | Containerized; runs identically locally or on a managed runtime | [`Dockerfile`](Dockerfile) |

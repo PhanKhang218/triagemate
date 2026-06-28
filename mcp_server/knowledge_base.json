@@ -1,5 +1,6 @@
 {
   "_disclaimer": "Educational decision-support reference only. Not a medical device. Final triage decisions are always made by a licensed clinician.",
+  "_sources": "Acuity levels follow the Emergency Severity Index (ESI) v4 five-level framework; red-flag patterns are adapted from ESI and Manchester Triage System concepts. This is a curated demo subset, not a complete or certified protocol.",
   "esi_levels": {
     "1": {
       "label": "Resuscitation",
@@ -76,6 +77,62 @@
         {"sign": "Fever with petechial/non-blanching rash", "concern": "Meningococcemia", "suggested_esi": 2},
         {"sign": "Fever with confusion or lethargy", "concern": "Severe infection / sepsis", "suggested_esi": 2},
         {"sign": "Fever in an immunocompromised or post-chemotherapy patient", "concern": "Neutropenic fever", "suggested_esi": 2}
+      ]
+    },
+    "stroke symptoms": {
+      "aliases": ["stroke", "facial droop", "slurred speech", "weakness one side", "numbness", "neurological deficit", "fast symptoms"],
+      "esi_criteria": "Any acute focal neurological deficit (face/arm/leg weakness, speech difficulty, vision loss) is a time-critical emergency and is ESI 1-2. Resolved or chronic deficits with normal vitals are lower acuity but still warrant urgent evaluation.",
+      "red_flags": [
+        {"sign": "Facial droop, arm weakness, or slurred speech (FAST positive)", "concern": "Acute stroke", "suggested_esi": 1},
+        {"sign": "Sudden vision loss or double vision", "concern": "Stroke / TIA", "suggested_esi": 2},
+        {"sign": "Sudden severe dizziness with difficulty walking", "concern": "Posterior circulation stroke", "suggested_esi": 2},
+        {"sign": "Deficit with decreased consciousness", "concern": "Large-vessel stroke / hemorrhage", "suggested_esi": 1}
+      ]
+    },
+    "allergic reaction": {
+      "aliases": ["allergy", "hives", "anaphylaxis", "swelling", "rash", "allergic"],
+      "esi_criteria": "Airway involvement, breathing difficulty, or signs of shock indicate anaphylaxis and are ESI 1. Localized hives with normal vitals and no airway/breathing involvement are ESI 3-4.",
+      "red_flags": [
+        {"sign": "Lip/tongue/throat swelling or difficulty breathing", "concern": "Anaphylaxis / airway compromise", "suggested_esi": 1},
+        {"sign": "Widespread hives with dizziness or hypotension", "concern": "Systemic anaphylaxis", "suggested_esi": 1},
+        {"sign": "Known severe allergy with recent exposure", "concern": "Impending anaphylaxis", "suggested_esi": 2}
+      ]
+    },
+    "injury": {
+      "aliases": ["trauma", "fall", "accident", "wound", "fracture", "laceration", "cut", "head injury"],
+      "esi_criteria": "High-energy mechanism, uncontrolled bleeding, or unstable vitals are ESI 1-2. An isolated minor injury (small laceration, suspected simple fracture) in a stable patient is often ESI 3-4.",
+      "red_flags": [
+        {"sign": "Uncontrolled bleeding or signs of shock", "concern": "Hemorrhage", "suggested_esi": 1},
+        {"sign": "Head injury with loss of consciousness, vomiting, or confusion", "concern": "Traumatic brain injury", "suggested_esi": 2},
+        {"sign": "Suspected spinal injury (neck/back pain after trauma, numbness)", "concern": "Spinal cord injury", "suggested_esi": 2},
+        {"sign": "Open fracture or obvious deformity with severe pain", "concern": "Major orthopedic injury", "suggested_esi": 2}
+      ]
+    },
+    "mental health crisis": {
+      "aliases": ["suicidal", "self harm", "anxiety", "panic", "psychiatric", "depression", "agitated"],
+      "esi_criteria": "Active suicidal/homicidal intent, agitation, or risk of harm requires immediate safety measures and is ESI 1-2. Stable patients seeking support with no acute risk are ESI 3-4. Always treat expressed intent conservatively.",
+      "red_flags": [
+        {"sign": "Active suicidal or homicidal intent or a plan", "concern": "Imminent harm risk", "suggested_esi": 2},
+        {"sign": "Suspected overdose or ingestion", "concern": "Toxic ingestion", "suggested_esi": 1},
+        {"sign": "Severe agitation or psychosis with safety risk", "concern": "Behavioral emergency", "suggested_esi": 2}
+      ]
+    },
+    "back pain": {
+      "aliases": ["backache", "lower back pain", "spine pain", "lumbar pain"],
+      "esi_criteria": "Most back pain with normal vitals and no neurological signs is ESI 4-5. Neurological deficits or systemic red flags escalate sharply.",
+      "red_flags": [
+        {"sign": "New leg weakness, numbness, or loss of bladder/bowel control", "concern": "Cauda equina syndrome", "suggested_esi": 2},
+        {"sign": "Back pain with fever or IV drug use", "concern": "Spinal infection / abscess", "suggested_esi": 2},
+        {"sign": "Sudden tearing back pain in an older patient", "concern": "Aortic dissection / aneurysm", "suggested_esi": 1}
+      ]
+    },
+    "vomiting and diarrhea": {
+      "aliases": ["vomiting", "diarrhea", "nausea", "dehydration", "gastroenteritis", "throwing up"],
+      "esi_criteria": "Signs of significant dehydration or shock (tachycardia, hypotension, lethargy) escalate toward ESI 2. A well-appearing patient tolerating fluids with stable vitals is ESI 4-5.",
+      "red_flags": [
+        {"sign": "Signs of severe dehydration or hypotension/tachycardia", "concern": "Hypovolemic shock", "suggested_esi": 2},
+        {"sign": "Blood in vomit or stool", "concern": "GI bleeding", "suggested_esi": 2},
+        {"sign": "Severe abdominal pain with persistent vomiting", "concern": "Bowel obstruction", "suggested_esi": 2}
       ]
     },
     "general": {
