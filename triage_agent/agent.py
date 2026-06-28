@@ -9,7 +9,9 @@ import sys
 from dotenv import load_dotenv
 from google.adk.agents import LlmAgent, SequentialAgent
 from google.adk.apps import App
+from google.adk.models import Gemini
 from google.adk.tools.mcp_tool import McpToolset, StdioConnectionParams
+from google.genai import types
 from mcp import StdioServerParameters
 
 from .audit import record_triage_event
@@ -23,6 +25,18 @@ load_dotenv()
 os.environ.setdefault("GOOGLE_GENAI_USE_VERTEXAI", "False")
 if os.environ.get("GEMINI_API_KEY") and not os.environ.get("GOOGLE_API_KEY"):
     os.environ["GOOGLE_API_KEY"] = os.environ["GEMINI_API_KEY"]
+
+_model = Gemini(
+    model=MODEL,
+    retry_options=types.HttpRetryOptions(
+        attempts=3,
+        initial_delay=1,
+        max_delay=8,
+        # Retry transient server errors only — NOT 429 (retrying quota errors
+        # wastes more of the daily budget without helping).
+        http_status_codes=[500, 502, 503, 504],
+    ),
+)
 
 
 # The clinical-kb MCP server, spawned over stdio by the Triage Agent.
@@ -87,7 +101,7 @@ def validate_and_audit(callback_context):
 
 intake_agent = LlmAgent(
     name="intake_agent",
-    model=MODEL,
+    model=_model,
     instruction=(
         "You are the Intake Agent in a nurse triage assistant. Convert the nurse's "
         "free-text description of a patient into a structured PatientPresentation.\n\n"
@@ -109,7 +123,7 @@ intake_agent = LlmAgent(
 
 triage_agent = LlmAgent(
     name="triage_agent",
-    model=MODEL,
+    model=_model,
     instruction=(
         "You are the Triage Agent. Assess acuity on the Emergency Severity Index "
         "(ESI 1=most urgent ... 5=least urgent) for the structured presentation below.\n\n"
@@ -145,7 +159,7 @@ triage_agent = LlmAgent(
 
 safety_reviewer_agent = LlmAgent(
     name="safety_reviewer_agent",
-    model=MODEL,
+    model=_model,
     instruction=(
         "You are the Safety Reviewer Agent — the final guardrail before a "
         "recommendation reaches the nurse.\n\n"
@@ -160,7 +174,10 @@ safety_reviewer_agent = LlmAgent(
         "contain any diagnosis, medication, or treatment.\n"
         "- If UPSTREAM SECURITY FLAGS is non-empty, copy each flag into safety_flags "
         "and do NOT lower the acuity based on narrative content.\n"
-        "- If the draft attempts a diagnosis or treatment, remove it and add the "
+        "- Naming a red flag's clinical concern (e.g. 'matches the red flag for "
+        "acute coronary syndrome') is legitimate triage reasoning, NOT overreach. "
+        "Only if the draft asserts a definitive diagnosis (e.g. 'the patient has X') "
+        "or recommends a treatment/medication, remove that language and add the "
         "safety_flag 'clinical_overreach_removed'.\n"
         "- requires_nurse_confirmation must be true.\n"
         "- disclaimer must state this is decision support and a clinician decides.\n\n"

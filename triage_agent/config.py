@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import os
 
-# Model used by every sub-agent (free-tier friendly, no GCP billing needed).
-MODEL = "gemini-2.5-flash"
+# Model used by every sub-agent (Gemini Developer API, no GCP billing needed).
+MODEL = "gemini-3-flash-preview"
 
 # Valid Emergency Severity Index range.
 ESI_MIN = 1
